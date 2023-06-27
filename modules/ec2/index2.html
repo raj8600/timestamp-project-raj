@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Timestamp</title>
+
+    <style>
+    body {
+        background-color: #FFFFFF;
+    }
+    label, button {
+        background-color: #FFFFFF;
+        color: #FF8000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        cursor: pointer;
+        padding: 5px;
+    }
+    input {
+        background-color: #FFFFFF;
+        color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        padding: 5px;
+    }
+    </style>
+
+    <script>
+    function callAPI() {
+        var firstName = document.getElementById('fName').value;
+        var lastName = document.getElementById('lName').value;
+        var data = {
+            firstName: firstName,
+            lastName: lastName
+        };
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        // Paste URL of API Gateway
+        fetch('https://x7tzkzghvh.execute-api.eu-west-1.amazonaws.com/dev/user', requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // Process the API response
+                console.log(result);
+                alert('API response: ' + JSON.stringify(result));
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the API request
+                console.error(error);
+                alert('API request failed. Error: ' + error);
+            });
+    }
+    </script>
+</head>
+
+<body>
+    <center> <h1 style="color: #FF8000; font-family: Arial, Helvetica, sans-serif"> WebApp to store Timestamp </h1> </center>
+    <form>
+        <label>First Name : </label>
+        <input type="text" id="fName">
+        <label>Last Name : </label>
+        <input type="text" id="lName">
+        <button type="button" onclick="callAPI()">Submit</button>
+    </form>
+</body>
+</html>
